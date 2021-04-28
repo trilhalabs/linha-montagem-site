@@ -3,6 +3,7 @@ image: node
 stages:
   - build
   - test
+  - deploy-preprod
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -36,3 +37,20 @@ test website:
     - gatsby serve &
     - sleep 10
     - curl "http://localhost:9000" | tac | tac | grep -q "Gatsby"
+
+deploy pre production: 
+  stage: deploy-preprod
+  environment:
+    name: preprod
+    url: https://linha-montagem-site.surge.sh
+  only:
+    - merge_requests
+  script:
+    - npm install
+    - npm install -g gatsby-cli
+    - gatsby build
+    - npm install --global surge
+    - surge --project ./public --domain linha-montagem-site.surge.sh
+  artifacts:
+    paths:
+      - ./public
