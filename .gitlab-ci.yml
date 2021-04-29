@@ -10,6 +10,9 @@ cache:
   paths:
     - node_modules/
 
+variables:
+  PREPROD_DOMAIN: linha-montagem-site.surge.sh
+
 build website:
   stage: build
   script:
@@ -42,7 +45,7 @@ deploy pre production:
   stage: deploy-preprod
   environment:
     name: preprod
-    url: https://linha-montagem-site.surge.sh
+    url: https://$PREPROD_DOMAIN
   only:
     - merge_requests
   script:
@@ -50,7 +53,7 @@ deploy pre production:
     - npm install -g gatsby-cli
     - gatsby build
     - npm install --global surge
-    - surge --project ./public --domain linha-montagem-site.surge.sh
+    - surge --project ./public --domain $PREPROD_DOMAIN
   artifacts:
     paths:
       - ./public
