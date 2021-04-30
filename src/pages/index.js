@@ -131,9 +131,9 @@ const IndexPage = () => {
     <main style={pageStyles}>
       <title>Home Page</title>
       <h1 style={headingStyles}>
-        Parabens Grupo de Estudo AWS
+        Grupo de Estudo AWS
         <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! </span>
+        <span style={headingAccentStyles}>— by Gatsby </span>
         <span role="img" aria-label="Party popper emojis">
           🎉🎉🎉
         </span>
@@ -145,6 +145,7 @@ const IndexPage = () => {
           😎
         </span>
       </p>
+      <p style={paragraphStyles}>Publicando num bucket S3 na AWS</p>
       <ul style={listStyles}>
         <li style={docLinkStyle}>
           <a

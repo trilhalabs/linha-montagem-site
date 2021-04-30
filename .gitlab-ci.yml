@@ -4,6 +4,8 @@ stages:
   - build
   - test
   - deploy-preprod
+  - deploy-production
+  - production-tests
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -12,6 +14,7 @@ cache:
 
 variables:
   PREPROD_DOMAIN: linha-montagem-site.surge.sh
+  PRODUCTION_DOMAIN: http://linha-montagem-site.s3-website-us-east-1.amazonaws.com
 
 build website:
   stage: build
@@ -57,3 +60,46 @@ deploy pre production:
   artifacts:
     paths:
       - ./public
+
+deploy to production: 
+  stage: deploy-production
+  image: python:3.8
+  dependencies:
+    - build website
+  environment:
+    name: production
+  only:
+    - master    
+  when: manual
+  allow_failure: false
+  before_script:
+    - apt-get -qq update
+    - pip3 install awscli --upgrade  
+    - touch ~/.bash_profile
+    - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    - source ~/.nvm/nvm.sh
+    - nvm --version
+    - nvm install node
+    - node -v
+    - apt-get -y install npm
+    - npm -v
+    - npm install -g npm@latest
+    - npm -v
+  script:
+    - npm install
+    - npm i gatsby-plugin-s3
+    - npm run build
+    - npm run deploy
+  artifacts:
+    paths:
+      - ./public  
+
+deploy to produbction tests:
+  stage: production-tests
+  only:
+    - master  
+  script:
+    - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "S3"
+    - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "AWS"
+    - curl -s "http://$PRODUCTION_DOMAIN" | grep -q "Grupo de Estudo"
+  cache: {}
