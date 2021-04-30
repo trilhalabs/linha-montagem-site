@@ -100,6 +100,4 @@ deploy to produbction tests:
     - master  
   script:
     - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "S3"
-    - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "AWS"
-    - curl -s "http://$PRODUCTION_DOMAIN" | grep -q "Grupo de Estudo"
   cache: {}
