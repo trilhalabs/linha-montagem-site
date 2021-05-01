@@ -9,7 +9,7 @@ const pageStyles = {
 const headingStyles = {
   marginTop: 0,
   marginBottom: 64,
-  maxWidth: 320,
+  maxWidth: 500,
 }
 const headingAccentStyles = {
   color: "#663399",
@@ -132,12 +132,13 @@ const IndexPage = () => {
       <title>Home Page</title>
       <h1 style={headingStyles}>
         Grupo de Estudo AWS
-        <br />
+      </h1>
+      <h2 style={headingStyles}>
         <span style={headingAccentStyles}>— by Gatsby </span>
         <span role="img" aria-label="Party popper emojis">
           🎉🎉🎉
         </span>
-      </h1>
+      </h2>
       <p style={paragraphStyles}>
         Edit <code style={codeStyles}>src/pages/index.js</code> to see this page
         update in real-time.{" "}
