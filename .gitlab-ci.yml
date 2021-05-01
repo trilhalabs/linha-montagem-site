@@ -99,7 +99,5 @@ deploy to production tests:
   only:
     - master  
   script:
-    - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "Grupo Estudo"
-    - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "S3"
-    - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "AWS"
+    - curl "http://linha-montagem-site.s3-website-us-east-1.amazonaws.com" | tac | tac | grep -q "AWS"
   cache: {}
