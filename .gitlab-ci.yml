@@ -14,7 +14,7 @@ cache:
 
 variables:
   PREPROD_DOMAIN: linha-montagem-site.surge.sh
-  PRODUCTION_DOMAIN: linha-montagem-site.s3-website-us-east-1.amazonaws.com
+  PRODUCTION_DOMAIN: linha-montagem-site.s3-website-us-east-1.amazonaws.com/
 
 build website:
   stage: build
@@ -100,4 +100,5 @@ deploy to production tests:
     - master  
   script:
     - curl "http://linha-montagem-site.s3-website-us-east-1.amazonaws.com" | tac | tac | grep -q "AWS"
+    - curl "http://$PRODUCTION_DOMAIN" | tac | tac | grep -q "AWS"
   cache: {}
