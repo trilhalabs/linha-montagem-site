@@ -3,43 +3,41 @@
 ## 🚀 Projeto Linha Montagem Site
 
 - Objetivo
-Projeto de estudo de conceitos de pipeline CIQCD através do Gitlab.
-Disponibilização de um site estático numa esteira contento build, testes, deploy em ambientes diferentes.
+  > Projeto de estudo de conceitos de pipeline CI/CD através do Gitlab. Disponibilização de um site estático numa esteira contendo build, testes, deploy em ambientes diferentes.
 
 - Ferramentas e softwares utilizadas
-  > Gatsby: site estático
-  > Surge.sh: DNS (Serveless)
-  > AWS - S3
-  > Gitlab: repositorio e Pipeline CI/CD
-  > Github: repositorio "refletido" (mirroring)
+  1. Gatsby: site estático
+  2. Surge.sh: DNS (Serveless)
+  3. AWS - S3
+  4. Gitlab: repositorio e Pipeline CI/CD
+  5. Github: repositorio "refletido" (mirroring)
 
   --------------------------------------------------------
 
-  <https://github.com/trilhalabs/linha-montagem-site.git>
+  <link><https://github.com/trilhalabs/linha-montagem-site.git>
   
   --------------------------------------------------------
 
 ## Montando ambiente local
 
-- Pre reqs
+### Pre reqs
 
-  > Git Bash
-  > Python
-  > SSH (Github e Gitlab)
-  > Pip
-  > AWS Cli
+  1. Git Bash
+  2. Python
+  3. SSH (Github e Gitlab)
+  4. Pip
+  5. AWS Cli
 
-- Rodando Ambiente Local
+### Rodando Ambiente Local
 
-  > node
-  > npm
-    <https://nodesource.com/blog/installing-nodejs-tutorial-windows/>
-    ou
-    <https://docs.microsoft.com/pt-br/windows/nodejs/setup-on-windows>
-    ou
-    <https://www.gatsbyjs.com/docs/tutorial/part-zero/>
-
-  > Gatsby <https://www.gatsbyjs.com/docs/quick-start/>
+- **node**
+- **npm**
+  <link><https://nodesource.com/blog/installing-nodejs-tutorial-windows/>
+  ou
+  <link><https://docs.microsoft.com/pt-br/windows/nodejs/setup-on-windows>
+  ou
+  <link><https://www.gatsbyjs.com/docs/tutorial/part-zero/>  
+- **Gatsby** <link><https://www.gatsbyjs.com/docs/quick-start/>
 
     ```shell
     $ npm install -g gatsby-cli
@@ -51,7 +49,7 @@ Disponibilização de um site estático numa esteira contento build, testes, dep
     >> No browser: <http://localhost:8000>
     ```
 
-  > Surge.sh
+- **Surge.sh**
   Irá simular nosso ambiente de Pre Producao
 
     ```shell
@@ -61,24 +59,24 @@ Disponibilização de um site estático numa esteira contento build, testes, dep
       >> Preecnher informacoes solicitadas
       >> Se ainda não possuir, indique um e-mail e senha
       >> Sera gerado um dominio ".surge.sh"
-      >> Obs: No caso de erro, execute novamente. Provavelmente o dominio ja existe. Ou crie um nome proprio .surge.sh
+      #Obs: No caso de erro, execute novamente. Provavelmente o dominio ja existe. Ou crie um nome proprio .surge.sh
       >> No browser: <http://seu-dominio.surge.sh>
 
-      >> Obs2: O surge sera usado como ambiente de pre producao na pipeline
+      #Obs2: O surge sera usado como ambiente de pre producao na pipeline
 
     Gere o token a ser configurado no Gitlab
     $ surge token
     ```
 
-  > Plusgin Gatsby AWS S3
-    >> Configurar AWS Cli
+- **Plusgin Gatsby AWS S3**
+  - Configurar AWS Cli
 
     ```shell
     $ aws configure --profile nome-da-sua-profile
     >> Obs: --profile é opcional
     ```
 
-    >> Alterar "gatsby-config.js"`
+  - Alterar "gatsby-config.js
 
     plugins [
       {
@@ -89,7 +87,7 @@ Disponibilização de um site estático numa esteira contento build, testes, dep
       },
     ]
 
-    >> Alterar "package.json"
+  - Alterar "package.json"
 
     "scripts": {
       ...
@@ -97,7 +95,7 @@ Disponibilização de um site estático numa esteira contento build, testes, dep
       ...
     }
   
-  > Instalar plugin localmente
+  - Instalar plugin localmente
 
     ```shell
     $npm install  gatsby-plugin-s3
@@ -106,7 +104,7 @@ Disponibilização de um site estático numa esteira contento build, testes, dep
     $ AWS_PROFILE=gatsby-useast1 npm run deploy
     ```
 
-  > Git local
+  - Git local
 
     ```shell
     $git remote -v
@@ -114,35 +112,37 @@ Disponibilização de um site estático numa esteira contento build, testes, dep
     $git remote -v
     ```
 
-## Configuracoes Gitlab
+### Configuracoes Gitlab
 
 - Merge Request
-Configurar o Gitlab para receber push de branches diferente de master (Exemplo. branch "develop")
 
-  > Menu Settings / General
-    >> Expanda a opção "Merge requests"
-      >>> Marque "Fast-forward merge"
-    >> Expanda a opção "Protected branches"
-      >>> Em "master (default)", selecione em "Allowed to push: No one" (desmarque outras opções)
+  - Configurar o Gitlab para receber push de branches diferente de master (Exemplo. branch "develop")
+
+  1. Menu Settings / General
+    => Expanda a opção "Merge requests"
+    => Marque "Fast-forward merge"
+    => Expanda a opção "Protected branches"
+    => Em "master (default)", selecione em "Allowed to push: No one" (desmarque outras opções)
 
 - Variaveis de ambiente
-Variaveis necessarias para acessar recursos externos
 
-  > Menu Settings > CI/CD
-    >> SURGE_LOGIN
-    >> SURGE_TOKEN
-    >> AWS_ACCESS_KEY_ID
-    >> AWS_SECRET_ACCESS_KEY
-    >> AWS_DEFAULT_REGION
+  - Variaveis necessarias para acessar recursos externos
 
-## AWS
+  1. Menu Settings > CI/CD
+    => SURGE_LOGIN
+    => SURGE_TOKEN
+    => AWS_ACCESS_KEY_ID
+    => AWS_SECRET_ACCESS_KEY
+    => AWS_DEFAULT_REGION
+
+### AWS
 
 - Criar Bucket S3
 
-  > liberar como publico
-  > disponibilizar como site estatico
+  1. liberar como publico
+  2. disponibilizar como site estatico
 
-## Rodar a Pipeline no Gitlab
+### Rodar a Pipeline no Gitlab
 
 - No terminal local
 
@@ -157,16 +157,16 @@ Variaveis necessarias para acessar recursos externos
     ```
 
 - No Gitlab
+
+  - Inicia execucao dos stages "Build" e "Test". Apos sucesso, entre no menu Repository / Branches
+  1. Na branch develop, clique no botao "Create Merge Request"
+    => **Execute os passos para o Merge Request**
+    => **Inicia execucao do stage "deploy-preprod"**
   
-  > Inicia execucao dos stages "Build" e "Test"
-  > Apos sucesso, entre no menu Repository / Branches
-    >> Na branch develop, clique no botao "Create Merge Request"
-    >> Execute os passos para o Merge Request
-      >>> Inicia execucao do stage "deploy-preprod"
-  > Apos sucesso, inicia esteira final
-    >> Processo entrara em Blocked no stage "deploy-production"
-    >> Aprove manualmente
-  > Deverao ser executados 4 stages
+  2. Apos sucesso, inicia esteira final
+    => **Processo entrara em Blocked no stage "deploy-production"**
+    => **Aprove manualmente**
+    => Deverao ser executados 4 stages
 
 - Alinhar commits
 
